@@ -1,0 +1,952 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
+  public: {
+    Tables: {
+      ad_tickets: {
+        Row: {
+          consumed_at: string | null
+          created_at: string
+          id: string
+          placement: string
+          user_id: string
+        }
+        Insert: {
+          consumed_at?: string | null
+          created_at?: string
+          id?: string
+          placement: string
+          user_id: string
+        }
+        Update: {
+          consumed_at?: string | null
+          created_at?: string
+          id?: string
+          placement?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ad_views: {
+        Row: {
+          created_at: string
+          id: string
+          placement: string
+          points: number
+          ticket_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          placement?: string
+          points?: number
+          ticket_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          placement?: string
+          points?: number
+          ticket_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ad_views_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "ad_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      admin_audit_events: {
+        Row: {
+          action: string
+          admin_id: string
+          created_at: string
+          details: Json
+          entity_id: string | null
+          entity_type: string
+          id: string
+        }
+        Insert: {
+          action: string
+          admin_id: string
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+        }
+        Update: {
+          action?: string
+          admin_id?: string
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      financial_transactions: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          details: Json
+          id: string
+          reference_id: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          details?: Json
+          id?: string
+          reference_id?: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          details?: Json
+          id?: string
+          reference_id?: string | null
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      game_plays: {
+        Row: {
+          created_at: string
+          doubled: boolean
+          game: string
+          id: string
+          points: number
+          ticket_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          doubled?: boolean
+          game: string
+          id?: string
+          points?: number
+          ticket_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          doubled?: boolean
+          game?: string
+          id?: string
+          points?: number
+          ticket_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_plays_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "ad_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mission_progress: {
+        Row: {
+          claimed: boolean
+          day: string
+          id: string
+          mission_key: string
+          progress: number
+          user_id: string
+        }
+        Insert: {
+          claimed?: boolean
+          day?: string
+          id?: string
+          mission_key: string
+          progress?: number
+          user_id: string
+        }
+        Update: {
+          claimed?: boolean
+          day?: string
+          id?: string
+          mission_key?: string
+          progress?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      payment_methods: {
+        Row: {
+          account_name: string
+          account_number: string
+          created_at: string
+          display_order: number
+          enabled: boolean
+          id: string
+          instructions: string | null
+          method_key: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          created_at?: string
+          display_order?: number
+          enabled?: boolean
+          id?: string
+          instructions?: string | null
+          method_key: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          created_at?: string
+          display_order?: number
+          enabled?: boolean
+          id?: string
+          instructions?: string | null
+          method_key?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount_minor: number
+          created_at: string
+          currency: string
+          fulfilled_at: string | null
+          gateway_status: string | null
+          id: string
+          item_key: string
+          item_type: string
+          provider: string
+          reference: string
+          status: string
+          usd_cents: number
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          amount_minor: number
+          created_at?: string
+          currency?: string
+          fulfilled_at?: string | null
+          gateway_status?: string | null
+          id?: string
+          item_key: string
+          item_type: string
+          provider?: string
+          reference: string
+          status?: string
+          usd_cents?: number
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          amount_minor?: number
+          created_at?: string
+          currency?: string
+          fulfilled_at?: string | null
+          gateway_status?: string | null
+          id?: string
+          item_key?: string
+          item_type?: string
+          provider?: string
+          reference?: string
+          status?: string
+          usd_cents?: number
+          user_id?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
+      pet_catalog: {
+        Row: {
+          active: boolean
+          blurb: string | null
+          coin_bonus: number
+          created_at: string
+          daily_withdrawable_cents: number
+          duration_days: number
+          earning_multiplier: number
+          generates_withdrawable: boolean
+          image_key: string | null
+          key: string
+          name: string
+          price_cents: number
+          rarity: string
+          special_reward: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          blurb?: string | null
+          coin_bonus?: number
+          created_at?: string
+          daily_withdrawable_cents?: number
+          duration_days?: number
+          earning_multiplier?: number
+          generates_withdrawable?: boolean
+          image_key?: string | null
+          key: string
+          name: string
+          price_cents: number
+          rarity: string
+          special_reward?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          blurb?: string | null
+          coin_bonus?: number
+          created_at?: string
+          daily_withdrawable_cents?: number
+          duration_days?: number
+          earning_multiplier?: number
+          generates_withdrawable?: boolean
+          image_key?: string | null
+          key?: string
+          name?: string
+          price_cents?: number
+          rarity?: string
+          special_reward?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pet_payment_submissions: {
+        Row: {
+          amount_paid_cents: number
+          created_at: string
+          id: string
+          payment_method_id: string
+          pet_key: string
+          proof_path: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount_paid_cents: number
+          created_at?: string
+          id?: string
+          payment_method_id: string
+          pet_key: string
+          proof_path: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount_paid_cents?: number
+          created_at?: string
+          id?: string
+          payment_method_id?: string
+          pet_key?: string
+          proof_path?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pet_payment_submissions_payment_method_id_fkey"
+            columns: ["payment_method_id"]
+            isOneToOne: false
+            referencedRelation: "payment_methods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pet_payment_submissions_pet_key_fkey"
+            columns: ["pet_key"]
+            isOneToOne: false
+            referencedRelation: "pet_catalog"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      pet_purchases: {
+        Row: {
+          amount_cents: number
+          coin_bonus: number
+          earning_multiplier: number
+          generates_withdrawable: boolean
+          id: string
+          pet_key: string
+          purchased_at: string
+          special_reward: string | null
+          submission_id: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          coin_bonus?: number
+          earning_multiplier?: number
+          generates_withdrawable?: boolean
+          id?: string
+          pet_key: string
+          purchased_at?: string
+          special_reward?: string | null
+          submission_id: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          coin_bonus?: number
+          earning_multiplier?: number
+          generates_withdrawable?: boolean
+          id?: string
+          pet_key?: string
+          purchased_at?: string
+          special_reward?: string | null
+          submission_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pet_purchases_pet_key_fkey"
+            columns: ["pet_key"]
+            isOneToOne: false
+            referencedRelation: "pet_catalog"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "pet_purchases_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: true
+            referencedRelation: "pet_payment_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      point_events: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          points: number
+          source: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          points: number
+          source: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          points?: number
+          source?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar: string | null
+          cash_cents: number
+          created_at: string
+          id: string
+          minipay_account: string | null
+          points: number
+          referral_code: string
+          referred_by: string | null
+          total_earned: number
+          total_redeemed: number
+          updated_at: string
+          username: string
+          verified: boolean
+          wallet_address: string | null
+        }
+        Insert: {
+          avatar?: string | null
+          cash_cents?: number
+          created_at?: string
+          id: string
+          minipay_account?: string | null
+          points?: number
+          referral_code: string
+          referred_by?: string | null
+          total_earned?: number
+          total_redeemed?: number
+          updated_at?: string
+          username: string
+          verified?: boolean
+          wallet_address?: string | null
+        }
+        Update: {
+          avatar?: string | null
+          cash_cents?: number
+          created_at?: string
+          id?: string
+          minipay_account?: string | null
+          points?: number
+          referral_code?: string
+          referred_by?: string | null
+          total_earned?: number
+          total_redeemed?: number
+          updated_at?: string
+          username?: string
+          verified?: boolean
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      redemptions: {
+        Row: {
+          cost_points: number
+          created_at: string
+          id: string
+          reward_id: string
+          reward_name: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          cost_points: number
+          created_at?: string
+          id?: string
+          reward_id: string
+          reward_name: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          cost_points?: number
+          created_at?: string
+          id?: string
+          reward_id?: string
+          reward_name?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "redemptions_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referrals: {
+        Row: {
+          bonus_points: number
+          created_at: string
+          id: string
+          referred_id: string
+          referrer_id: string
+        }
+        Insert: {
+          bonus_points?: number
+          created_at?: string
+          id?: string
+          referred_id: string
+          referrer_id: string
+        }
+        Update: {
+          bonus_points?: number
+          created_at?: string
+          id?: string
+          referred_id?: string
+          referrer_id?: string
+        }
+        Relationships: []
+      }
+      rewards: {
+        Row: {
+          active: boolean
+          brand_color: string | null
+          category: string
+          cost_points: number
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          value_label: string | null
+        }
+        Insert: {
+          active?: boolean
+          brand_color?: string | null
+          category?: string
+          cost_points: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          value_label?: string | null
+        }
+        Update: {
+          active?: boolean
+          brand_color?: string | null
+          category?: string
+          cost_points?: number
+          created_at?: string
+          id?: string
+          name?: string
+          value_label?: string | null
+        }
+        Relationships: []
+      }
+      user_pets: {
+        Row: {
+          expires_at: string
+          id: string
+          last_claim_at: string | null
+          pet_key: string
+          purchased_at: string
+          user_id: string
+        }
+        Insert: {
+          expires_at: string
+          id?: string
+          last_claim_at?: string | null
+          pet_key: string
+          purchased_at?: string
+          user_id: string
+        }
+        Update: {
+          expires_at?: string
+          id?: string
+          last_claim_at?: string | null
+          pet_key?: string
+          purchased_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      withdrawable_balances: {
+        Row: {
+          available_cents: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          available_cents?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          available_cents?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      withdrawable_withdrawals: {
+        Row: {
+          admin_note: string | null
+          amount_cents: number
+          completed_at: string | null
+          created_at: string
+          id: string
+          paid_at: string | null
+          payment_proof_path: string | null
+          payout_details: string
+          payout_method: string
+          processed_at: string | null
+          rejection_reason: string | null
+          request_key: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          admin_note?: string | null
+          amount_cents: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payment_proof_path?: string | null
+          payout_details: string
+          payout_method: string
+          processed_at?: string | null
+          rejection_reason?: string | null
+          request_key: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          admin_note?: string | null
+          amount_cents?: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payment_proof_path?: string | null
+          payout_details?: string
+          payout_method?: string
+          processed_at?: string | null
+          rejection_reason?: string | null
+          request_key?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      withdrawal_events: {
+        Row: {
+          created_at: string
+          detail: string | null
+          id: string
+          status: string
+          tx_hash: string | null
+          withdrawal_id: string
+        }
+        Insert: {
+          created_at?: string
+          detail?: string | null
+          id?: string
+          status: string
+          tx_hash?: string | null
+          withdrawal_id: string
+        }
+        Update: {
+          created_at?: string
+          detail?: string
+          id?: string
+          status?: string
+          tx_hash?: string | null
+          withdrawal_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "withdrawal_events_withdrawal_id_fkey"
+            columns: ["withdrawal_id"]
+            isOneToOne: false
+            referencedRelation: "withdrawals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      withdrawals: {
+        Row: {
+          account_name: string | null
+          account_number: string | null
+          admin_note: string | null
+          amount_cents: number
+          bank_name: string | null
+          coin_amount: number
+          completed_at: string | null
+          created_at: string
+          failure_reason: string | null
+          fee_cents: number
+          id: string
+          minipay_account: string
+          net_cents: number
+          paid_at: string | null
+          payment_proof_path: string | null
+          payout_mode: string
+          processed_at: string | null
+          request_key: string | null
+          status: string
+          token: string
+          token_amount: number
+          tx_hash: string | null
+          tx_ref: string
+          user_id: string
+          wallet_address: string | null
+        }
+        Insert: {
+          account_name?: string | null
+          account_number?: string | null
+          admin_note?: string | null
+          amount_cents: number
+          bank_name?: string | null
+          coin_amount?: number
+          completed_at?: string | null
+          created_at?: string
+          failure_reason?: string | null
+          fee_cents?: number
+          id?: string
+          minipay_account: string
+          net_cents: number
+          paid_at?: string | null
+          payment_proof_path?: string | null
+          payout_mode?: string
+          processed_at?: string | null
+          request_key?: string | null
+          status?: string
+          token?: string
+          token_amount?: number
+          tx_hash?: string | null
+          tx_ref: string
+          user_id: string
+          wallet_address?: string | null
+        }
+        Update: {
+          account_name?: string | null
+          account_number?: string | null
+          admin_note?: string | null
+          amount_cents?: number
+          bank_name?: string | null
+          coin_amount?: number
+          completed_at?: string
+          created_at?: string
+          failure_reason?: string | null
+          fee_cents?: number
+          id?: string
+          minipay_account?: string
+          net_cents?: number
+          paid_at?: string | null
+          payment_proof_path?: string | null
+          payout_mode?: string
+          processed_at?: string | null
+          request_key?: string | null
+          status?: string
+          token?: string
+          token_amount?: number
+          tx_ref?: string
+          user_id?: string
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      adjust_cash: { Args: { _cents: number; _user: string }; Returns: number }
+      admin_credit_withdrawable: {
+        Args: {
+          _admin: string
+          _amount_cents: number
+          _details?: Json
+          _source: string
+          _user: string
+        }
+        Returns: number
+      }
+      admin_review_pet_payment: {
+        Args: {
+          _admin: string
+          _rejection_reason?: string
+          _status: string
+          _submission_id: string
+        }
+        Returns: {
+          amount_paid_cents: number
+          created_at: string
+          id: string
+          payment_method_id: string
+          pet_key: string
+          proof_path: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "pet_payment_submissions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      admin_update_payment_method: {
+        Args: {
+          _account_name: string
+          _account_number: string
+          _admin: string
+          _enabled: boolean
+          _id: string
+          _instructions: string
+        }
+        Returns: {
+          account_name: string
+          account_number: string
+          created_at: string
+          display_order: number
+          enabled: boolean
+          id: string
+          instructions: string | null
+          method_key: string
+          name: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payment_methods"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      admin_update_pet_catalog: {
+        Args: {
+          _active: boolean
+          _admin: string
+          _blurb: string
+          _coin_bonus: number
+          _daily_withdrawable_cents: number
+          _duration_days: number
+          _earning_multiplier: number
+          _generates_withdrawable: boolean
+          _key: string
+          _price_cents: number
+          _special_reward: string
+        }
+        Returns: {
+          active: boolean
+          blurb: string | null
+          coin_bonus: number
+          created
